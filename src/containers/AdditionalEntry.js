@@ -1,23 +1,14 @@
 import React, { Component } from 'react';
-import IVsCheckContainer from '../containers/IVsCheckContainer'
+import IVsList from '../components/IVsList';
+import FlawlessSelect from '../components/FlawlessSelect';
 
 class AdditionalEntry extends Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            flawless: 1,
-            ivs: [31,0,0,0,0,0],
-        };
-        this.onChanged=this.onChanged.bind(this);
-    }
-    onChanged(ivs,flawless){
-        this.setState({ivs: ivs, flawless: flawless});
-    }
     render(){
         return (
             <div>
                 <p key={"anounce"}> {this.props.anounce} </p>
-                <IVsCheckContainer key={"second"} items={this.props.items} ivs={this.state.ivs} flawless={this.state.flawless} onChange={this.onChanged} />
+                <FlawlessSelect flawless={this.props.flawless} items={this.props.items} onChange={(e)=>{this.props.onFlawlessChanged(e.target.value*1)}} />
+                <IVsList ivs={this.props.ivs} onChange={this.props.onIVsChanged} />
             </div>
         );
     }

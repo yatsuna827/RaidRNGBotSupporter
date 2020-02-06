@@ -30,7 +30,7 @@ class IVPuzzleChecker{
         return next;
     }
     check1V(){
-        const next = this.ivs.map(_=>_===31 ? 31 : false);
+        const next = this.ivs.map(_=>_===31 ? 31 : -1);
         if(!this.flaw[0] && !this.flaw[1] && !this.flaw[2] && !this.flaw[3] && this.flaw[4]){
             next[this.flaw[4]%8] = 31;
             return { "options": [{"flawless": 2, "ivs": next }], "message": "2V個体と合わせれば個体値情報×9が得られます\r\n(2体目無しでも個体値情報×5が得られています)" };
@@ -53,7 +53,7 @@ class IVPuzzleChecker{
         const res = [];
         const mes = [];
         
-        const next = this.ivs.map(_=>_===31 ? 31 : false);
+        const next = this.ivs.map(_=>_===31 ? 31 : -1);
         if(!this.flaw[0] && !this.flaw[1] && !this.flaw[2] && this.flaw[3]) {
             next[this.flaw[3]%8] = 31;
             res.push({"flawless": 3, "ivs": next});
@@ -89,8 +89,11 @@ class IVPuzzleChecker{
         return  { "options": res, "message": mes.filter(_=>_!=="アホしね").join("\r\n") };
     }
     check3V(){
-        if(!this.flaw[0] && !this.flaw[1] && this.flaw[2]) 
-            return { "options": [{"flawless" : 4, "ivs": this.ivs.map(_=>_===31 ? 31 : false)}], "message": "4V個体と合わせれば個体値情報×5が得られます" };
+        const next = this.ivs.map(_=>_===31 ? 31 : -1);
+        if(!this.flaw[0] && !this.flaw[1] && this.flaw[2]) {
+            next[this.flawivs[2]%8] = 31;
+            return { "options": [{"flawless" : 4, "ivs": next}], "message": "4V個体と合わせれば個体値情報×5が得られます" };
+        }
             
         return this.fxxk;
     }
