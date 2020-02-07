@@ -9,7 +9,7 @@ class IVsList extends Component{
     renderList = (i) => {
         const iv = this.props.ivs[i];
         const fix = (this.props.fix || Array(6).fill(-1))[i];
-        const opt = fix!==-1 ? <option key={iv} value={iv}>{iv}</option> : [...Array(32).keys()].map(_=><option key={_} value={_}>{_}</option>);
+        const opt = fix!==-1 ? <option  key={iv} value={iv}>{iv}</option> : [...Array(32).keys()].map(_=><option key={_} value={_}>{_}</option>);
         return <select value={iv} onChange={(e)=>this.handleChange(i,e)}> {opt} </select>
     }
     render(){
